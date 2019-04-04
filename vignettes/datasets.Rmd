@@ -1,0 +1,139 @@
+---
+title: "Datasets"
+author: "Richard White"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Dev Installation
+
+If you want to install the dev version, run `usethis::edit_r_profile()` to edit your `.Rprofile`. Then write in:
+
+```
+options(repos=structure(c(
+  FHI="https://folkehelseinstituttet.github.io/drat/",
+  CRAN="https://cran.rstudio.com"
+)))
+```
+
+Save the file and restart R. This will allow you to install `fhidata` from the FHI registry instead of CRAN.
+
+# Population Datasets
+
+We conveniently package population data taken from Statistics Norway. This data is licensed under the Norwegian Licence for Open Government Data (NLOD) 2.0.
+
+## norway_population_current
+
+This dataset contains national/county/municipality level population data for every age (0 to 105 years old) from 2006. The counties and municipalities are updated for the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_population_current)
+```
+
+## norway_population_original
+
+This dataset contains national/county/municipality level population data for every age (0 to 105 years old) from 2006. The counties and municipalities are not updated for the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_population_original)
+```
+
+# Location Codes/Names Datasets
+
+We provide location names and location codes in multiple formats.
+
+## norway_locations_long_current
+
+This dataset contains national/county/municipality codes and names. The counties and municipalities are updated for the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_locations_long_current)
+```
+
+## norway_locations_long_original
+
+This dataset contains national/county/municipality codes and names. The counties and municipalities are not updated for the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_locations_long_original)
+```
+
+## norway_locations_current
+
+This dataset contains county codes/names and municipality codes/names for each municipality. The counties and municipalities are updated for the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_locations_current)
+```
+
+## norway_locations_original
+
+This dataset contains county codes/names and municipality codes/names for each municipality. The counties and municipalities are not updated for the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_locations_original)
+```
+
+## norway_municip_merging
+
+This dataset is used to transfer "original" municipality level datasets to the current redistricting.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::norway_municip_merging)
+```
+
+# English to Norwegian Datasets
+
+We provide some datasets for easy Norwegian to English translations.
+
+## countries_nb_to_en
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+print(fhidata::countries_nb_to_en)
+```
+
+# Maps and Map Datasets
+
+We conveniently package map datasets for Norway (taken from Geonorge) that can be used in ggplot2 without needing any geo libraries. This data is licensed under Creative Commons 0.
+
+## County Maps (norway_map_counties)
+
+```{r fig.height=7, fig.width=7}
+library(ggplot2)
+library(data.table)
+
+pd <- fhidata::norway_map_counties
+
+q <- ggplot()
+q <- q + geom_polygon(data = pd, aes( x = long, y = lat, group = group, fill=location_code), color="black")
+q <- q + theme_void()
+q <- q + coord_quickmap()
+q
+```
+
+## Municipality Maps (norway_map_municips)
+
+```{r fig.height=7, fig.width=7}
+library(ggplot2)
+library(data.table)
+
+pd <- fhidata::norway_map_municips
+
+q <- ggplot()
+q <- q + geom_polygon(data = pd, aes( x = long, y = lat, group = group), color="black", fill="white")
+q <- q + theme_void()
+q <- q + coord_quickmap()
+q
+```
+
