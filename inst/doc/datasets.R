@@ -11,6 +11,9 @@ print(fhidata::norway_population_current)
 print(fhidata::norway_population_original)
 
 ## ----echo=FALSE, message=FALSE, warning=FALSE----------------------------
+print(fhidata::norway_childhood_vax)
+
+## ----echo=FALSE, message=FALSE, warning=FALSE----------------------------
 print(fhidata::norway_locations_long_current)
 
 ## ----echo=FALSE, message=FALSE, warning=FALSE----------------------------
