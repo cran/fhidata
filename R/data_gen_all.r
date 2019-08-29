@@ -5,6 +5,9 @@ gen_data_all <- function(base_loc) {
   on.exit(setwd(old_wd))
   setwd(base_loc)
 
+  days <- gen_days()
+  save(days, file = file.path(base_loc, "days.rda"), compress = "bzip2")
+
   norway_municip_merging <- gen_norway_municip_merging()
   save(norway_municip_merging, file = file.path(base_loc, "norway_municip_merging.rda"), compress = "bzip2")
 
@@ -33,4 +36,9 @@ gen_data_all <- function(base_loc) {
   # save(norway_map_counties, file=file.path("/git","/fhidata","data","norway_map_counties.rda"), compress = "xz")
   # norway_map_municips <-  gen_norway_map_municips()
   # save(norway_map_municips, file=file.path("/git","/fhidata","data","norway_map_municips.rda"), compress = "xz")
+
+  # load(file.path(base_loc,"norway_locations_current.rda"))
+  # load(file.path(base_loc,"norway_map_municips.rda"))
+  # senorge <- gen_senorge(norway_locations_current, norway_map_municips)
+  # save(senorge, file=file.path(base_loc,"senorge.rda"), compress = "xz")
 }
